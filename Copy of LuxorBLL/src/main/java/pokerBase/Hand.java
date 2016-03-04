@@ -132,13 +132,31 @@ public class Hand {
 	}
 
 	public static boolean isHandRoyalFlush(Hand h, HandScore hs) {
+		
+		boolean bHandCheck = false;
+		if(isHandStraight(h,hs)&& isHandFlush(h,hs) && h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == eRank.ACE){
+			bHandCheck = true;
+			hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNum());
+			hs.setLoHand(0);
+		}
 		hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
-		return false;
+		return bHandCheck;
 	}
 
 	public static boolean isHandStraightFlush(Hand h, HandScore hs) {
+		
+		boolean bHandCheck = false;
+		
+		if(isHandStraight(h,hs)&& isHandFlush(h,hs) && h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() != eRank.ACE){
+			bHandCheck = true;
+			hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNum());
+			hs.setLoHand(0);
+		}
+		
 		hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
-		return false;
+		return bHandCheck;
 	}
 
 	public static boolean isHandFourOfAKind(Hand h, HandScore hs) {
@@ -175,13 +193,39 @@ public class Hand {
 	}
 
 	public static boolean isHandFlush(Hand h, HandScore hs) {
+		
+		boolean bHandCheck = false;
+
+		if (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit() == h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteSuit()
+				&& h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit() == h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteSuit()
+				&& h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit() == h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteSuit()
+				&& h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit() == h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteSuit()) {
+			bHandCheck = true;
+			hs.setHandStrength(eHandStrength.Flush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNum());
+			hs.setLoHand(0);
+		}
 		hs.setHandStrength(eHandStrength.Flush.getHandStrength());
-		return false;
+		return bHandCheck;
 	}
 
 	public static boolean isHandStraight(Hand h, HandScore hs) {
+		
+		boolean bHandCheck = false;
+		
+		if(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNum() - h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNum()==1
+		   && h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNum() - h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNum()==1
+		   && h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNum() - h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNum()==1
+		   && h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNum() - h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNum()==1
+		   ){
+			bHandCheck = true;
+			hs.setHandStrength(eHandStrength.Straight.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNum());
+			hs.setLoHand(0);
+			
+		}
 		hs.setHandStrength(eHandStrength.Straight.getHandStrength());
-		return false;
+		return bHandCheck;
 	}
 
 	public static boolean isHandThreeOfAKind(Hand h, HandScore hs) {
